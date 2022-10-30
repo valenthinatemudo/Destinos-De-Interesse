@@ -1,0 +1,66 @@
+form {
+  height: auto;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 10px;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.dadosP,
+.dadosI {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  margin: 5px;
+  gap: 10px;
+}
+
+.forms {
+  display: flex;
+}
+
+img {
+  max-width: 300px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid gray;
+  height: 25px;
+  width: 250px;
+}
+
+button {
+  width: 200px;
+  padding: 10px;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+span {
+  color: red;
+  font-size: 15px;
+}
