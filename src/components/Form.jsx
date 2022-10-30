@@ -56,7 +56,7 @@ export function Form() {
 
           <label>
             Nome
-            <input type="text" {...register('name', { required: true })} />
+            <input type="text" {...register('name')} />
             <span>{errors.name?.message}</span>
           </label>
 
@@ -95,7 +95,7 @@ export function Form() {
             <span>{errors.country?.message}</span>
           </label>
 
-          <label>
+          <label name="city" {...register('city')}>
             Cidade
             <DropdownCities
               id="city"
