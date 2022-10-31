@@ -4,7 +4,6 @@ import imgDestination from '../assets/destination.svg';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useState } from 'react';
 import { DropdownCountries } from './DropdownCountries';
 import { DropdownCities } from './DropdownCities';
 
@@ -21,11 +20,26 @@ const schema = yup
       .matches(phoneNumber, 'O telefone é obrigatório')
       .required(),
     cpf: yup.string().min(11, 'O cpf é obrigatório').required(),
-    country: yup.string().required('O país é obrigatório'),
-    city: yup.string().required('A cidade é obrigatória'),
+    country: yup
+      .array()
+      .min(1, 'Escolha pelo menos um país')
+      .of(
+        yup.object().shape({
+          label: yup.string().required(),
+          value: yup.string().required(),
+        })
+      ),
+    city: yup
+      .array()
+      .min(1, 'Escolha pelo menos uma cidade')
+      .of(
+        yup.object().shape({
+          label: yup.string().required(),
+          value: yup.string().required(),
+        })
+      ),
   })
   .required();
-
 export function Form() {
   const {
     register,
@@ -39,13 +53,6 @@ export function Form() {
     console.log(userData);
   }
 
-  const [formValues, setFormValues] = useState({});
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <img src={imgDestination} alt="Picture of undraw" />
@@ -57,19 +64,19 @@ export function Form() {
           <label>
             Nome
             <input type="text" {...register('name')} />
-            <span>{errors.name?.message}</span>
+            <span className={styles.spanLabel}>{errors.name?.message}</span>
           </label>
 
           <label>
             Email
             <input type="text" {...register('email')} />
-            <span>{errors.email?.message}</span>
+            <span className={styles.spanLabel}>{errors.email?.message}</span>
           </label>
 
           <label>
             Telefone
             <input type="tel" {...register('phone')} />
-            <span>{errors.phone?.message}</span>
+            <span className={styles.spanLabel}>{errors.phone?.message}</span>
           </label>
 
           <label>
@@ -79,7 +86,7 @@ export function Form() {
               pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
               {...register('cpf')}
             />
-            <span>{errors.cpf?.message}</span>
+            <span className={styles.spanLabel}>{errors.cpf?.message}</span>
           </label>
         </div>
 
@@ -87,23 +94,14 @@ export function Form() {
           <h2>Dados de interesse</h2>
           <label name="country" {...register('country')}>
             País
-            <DropdownCountries
-              id="country"
-              name="country"
-              onChange={handleInputChange}
-            />
-            <span>{errors.country?.message}</span>
+            <DropdownCountries id="country" name="country" />
+            <span className={styles.spanLabel}>{errors.country?.message}</span>
           </label>
 
           <label name="city" {...register('city')}>
             Cidade
-            <DropdownCities
-              id="city"
-              name="city"
-              country={formValues.country}
-              onChange={handleInputChange}
-            />
-            <span>{errors.city?.message}</span>
+            <DropdownCities id="city" name="city" />
+            <span className={styles.spanLabel}>{errors.city?.message}</span>
           </label>
         </div>
       </div>

@@ -1,11 +1,11 @@
-const responseToJson = (response) => response.json();
-
-export const apiCountries = () => {
+export const apiCountries = async () => {
   const urlCountries = 'https://amazon-api.sellead.com/country';
-  return fetch(urlCountries).then(responseToJson);
+  return await fetch(urlCountries).then(
+    async (response) => await response.json()
+  );
 };
 
-export const apiCities = () => {
+export const apiCities = async () => {
   const urlCities = 'https://amazon-api.sellead.com/city';
-  return fetch(urlCities).then(responseToJson);
+  return await fetch(urlCities).then(async (response) => await response.json());
 };

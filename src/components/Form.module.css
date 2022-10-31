@@ -58,9 +58,15 @@ button {
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
+  color: #fff;
 }
 
 span {
+  color: black;
+  font-size: 15px;
+}
+
+.spanLabel {
   color: red;
   font-size: 15px;
 }
