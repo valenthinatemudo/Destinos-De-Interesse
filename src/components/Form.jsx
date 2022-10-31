@@ -20,24 +20,24 @@ const schema = yup
       .matches(phoneNumber, 'O telefone é obrigatório')
       .required(),
     cpf: yup.string().min(11, 'O cpf é obrigatório').required(),
-    country: yup
-      .array()
-      .min(1, 'Escolha pelo menos um país')
-      .of(
-        yup.object().shape({
-          label: yup.string().required(),
-          value: yup.string().required(),
+    country: yup.array().of(
+      yup
+        .object()
+        .shape({
+          label: yup.string(),
+          value: yup.string(),
         })
-      ),
-    city: yup
-      .array()
-      .min(1, 'Escolha pelo menos uma cidade')
-      .of(
-        yup.object().shape({
-          label: yup.string().required(),
-          value: yup.string().required(),
+        .required('O país é obrigatório')
+    ),
+    city: yup.array().of(
+      yup
+        .object()
+        .shape({
+          label: yup.string(),
+          value: yup.string(),
         })
-      ),
+        .required('A cidade é obrigatória')
+    ),
   })
   .required();
 export function Form() {
